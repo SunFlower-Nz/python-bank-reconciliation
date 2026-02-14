@@ -5,11 +5,23 @@ Automated bank reconciliation system that matches OFX bank statements against CS
 ## Features
 
 - **OFX Parsing**: Parse bank statements in OFX/QFX format
-- **CSV Parsing**: Parse internal accounting records from CSV/Excel
+- **CSV Parsing**: Parse internal accounting records from CSV/Excel with flexible column mapping
 - **Smart Matching**: Exact match, fuzzy match (date tolerance + amount threshold), and duplicate detection
 - **Excel Reports**: Professional 5-tab Excel reports with formatting, conditional highlighting, and summary dashboards
 - **CLI Interface**: Simple command-line usage for automation pipelines
+- **i18n Support**: Handles Brazilian date/number formats and Portuguese terms
 - **Extensible**: Easy to add new parsers and matching strategies
+
+## Quick Demo
+
+Run the demo script to see the tool in action with example data:
+
+```bash
+pip install -r requirements.txt
+python demo.py
+```
+
+This will parse the example files in `examples/` and generate `examples/reconciliation_report.xlsx`.
 
 ## Architecture
 
@@ -25,6 +37,11 @@ src/
 │   └── excel_report.py      # Excel report generator
 └── main.py                  # CLI entry point
 
+examples/
+├── bank_statement.ofx       # Sample OFX bank statement
+├── internal_records.csv     # Sample internal records
+└── reconciliation_report.xlsx  # Generated report (after running demo)
+
 tests/
 ├── test_ofx_parser.py
 ├── test_csv_parser.py
@@ -32,8 +49,7 @@ tests/
 ├── test_excel_report.py
 └── fixtures/
     ├── sample.ofx
-    ├── sample_internal.csv
-    └── expected_output.xlsx
+    └── sample_internal.csv
 ```
 
 ## Installation
@@ -52,7 +68,10 @@ python -m src.main --bank statements/bank.ofx --internal records/accounting.csv 
 python -m src.main --bank bank.ofx --internal records.csv --output report.xlsx --date-tolerance 3 --amount-threshold 0.02
 
 # Multiple bank files
-python -m src.main --bank bank_jan.ofx bank_feb.ofx --internal records.csv --output report.xlsx
+python -m src.main --bank bank_jan.ofx --bank bank_feb.ofx --internal records.csv --output report.xlsx
+
+# With custom column mapping for CSV
+python -m src.main --bank bank.ofx --internal records.csv --output report.xlsx --date-col "Data" --amount-col "Valor" --desc-col "Descricao"
 ```
 
 ## Report Tabs
@@ -65,14 +84,21 @@ python -m src.main --bank bank_jan.ofx bank_feb.ofx --internal records.csv --out
 | **Internal Only** | Transactions in internal records but not in bank statement |
 | **Duplicates** | Potential duplicate transactions flagged for review |
 
+## Running Tests
+
+```bash
+pytest tests/ -v
+pytest tests/ -v --cov=src --cov-report=term-missing
+```
+
 ## Tech Stack
 
 - **Python 3.11+**
-- **Pandas** — Data manipulation
-- **ofxparse** — OFX file parsing
-- **openpyxl** — Excel report generation
-- **pytest** — Testing
-- **click** — CLI interface
+- **Pandas** - Data manipulation
+- **ofxparse** - OFX file parsing
+- **openpyxl** - Excel report generation
+- **pytest** - Testing
+- **click** - CLI interface
 
 ## Real-World Impact
 

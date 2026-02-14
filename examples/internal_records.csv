@@ -1,0 +1,13 @@
+date,amount,description,reference,type
+2025-01-10,1000.00,Payment from Client A,REF001,credit
+2025-01-15,-500.00,Office supplies purchase,REF002,debit
+2025-01-20,2500.00,Invoice 1234 payment,REF003,credit
+2025-01-25,-150.00,Monthly subscription fee,,debit
+2025-01-19,748.00,Consulting service,REF005,credit
+2025-01-22,-320.50,Equipment maintenance,,debit
+2025-01-28,1800.00,Project milestone payment,REF007,credit
+2025-01-30,-90.00,Internet service,,debit
+2025-01-12,3200.00,Internal only - large deposit,,credit
+2025-01-27,-450.00,Internal only - vendor payment,,debit
+2025-01-15,-500.00,Duplicate office supplies,REF002DUP,debit
+2025-01-20,2500.00,Duplicate invoice payment,REF003DUP,credit

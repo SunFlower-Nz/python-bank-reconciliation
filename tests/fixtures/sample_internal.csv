@@ -1,0 +1,4 @@
+date,amount,description,reference,type
+2025-01-10,500.00,Test deposit,CHK001,credit
+2025-01-15,-200.00,Test withdrawal,,debit
+2025-01-20,1500.00,Invoice payment,CHK003,credit
